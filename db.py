@@ -42,7 +42,7 @@ class Datebase:
         self.connection.commit()
 
     def insertschool(self, name, location, ranking):
-        cmd="INSERT INTO schools VALUES ('"+name+"', "+location+", "+ranking+")"
+        cmd="INSERT INTO schools VALUES ('"+name+"', '"+location+"', "+ranking+")"
         print(cmd)
         self.cursor.execute(cmd)
         self.connection.commit()
@@ -61,6 +61,24 @@ class Datebase:
 
     def cmd(self, cmd):
         cmd=cmd
+        self.cursor.execute(cmd)
+        return self.cursor.fetchall()
+        
+        
+    def deleteall(self):
+        cmd="DELETE FROM players"
+        self.cursor.execute(cmd)
+        self.connection.commit()
+        cmd="DELETE FROM teams"
+        self.cursor.execute(cmd)
+        self.connection.commit()
+        cmd="DELETE FROM coaches"
+        self.cursor.execute(cmd)
+        self.connection.commit()
+        cmd="DELETE FROM contracts"
+        self.cursor.execute(cmd)
+        self.connection.commit()
+        cmd="DELETE FROM schools"
         self.cursor.execute(cmd)
         self.connection.commit()
     

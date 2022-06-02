@@ -1,3 +1,4 @@
+from ast import In
 import tkinter as TK
 from tkinter import END, Entry, messagebox
 from typing import List
@@ -25,6 +26,275 @@ def populate():
         slist.insert(TK.END, row)
     for row in db.fetch('teams'):
         tlist.insert(TK.END, row)
+        
+def having():
+    cmd="SELECT COUNT(*),team FROM players GROUP BY team HAVING COUNT(*)>1"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/31)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*31:(i+1)*31])
+        
+        resultbox.insert(TK.END, str[(i+1)*31:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+        
+def avg():
+    cmd="SELECT AVG(value),AVG(length) FROM contracts"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+        
+def min():
+    cmd="SELECT SSN,MIN(value) FROM contracts"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+        
+def max():
+    cmd="SELECT SSN,MAX(value) FROM contracts"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+    
+def cou():
+    cmd="SELECT COUNT(*) FROM schools WHERE ranking>50"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+    
+def su():
+    cmd="SELECT SUM(value) FROM contracts WHERE SSN IN (SELECT SSN FROM players WHERE team='Warriors')"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+    
+def notexists():
+    cmd="SELECT name,school FROM players WHERE NOT EXISTS (SELECT name FROM schools WHERE ranking<35)"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+    
+def exists():
+    cmd="SELECT name,school FROM players WHERE EXISTS (SELECT name FROM schools WHERE ranking<35)"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate()
+    
+def notin():
+    cmd="SELECT * FROM coaches WHERE team NOT IN ('Suns', 'Celtics')"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate() 
+    
+def iinn():
+    cmd="SELECT * FROM players WHERE team IN ('Warriors', 'Celtics')"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate() 
+        
+def upd():
+    try:
+        pn=player.get()
+        ps=pssn.get()
+        psc=pschool.get()
+        pt=pteam.get()
+        if ps!='':
+            db.update(ps,pn,pt,psc)
+                
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate() 
+                
+def dlt():
+    try:
+        sname=snentry.get()
+        if sname!='':
+            db.delete('name',sname,'schools')
+        pssn=pssnentry.get()
+        if pssn!='':
+            db.delete('SSN',pssn,'players')
+        cssn=cssnentry.get()
+        if cssn!='':
+            db.delete('SSN',cssn,'coaches')
+        cossn=cossnentry.get()
+        if cossn!='':
+            db.delete('SSN',cossn,'contracts')
+        tname=tnameentry.get()
+        if tname!='':
+            db.delete('name',tname,'teams')
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate() 
+        
+def sfw():
+    cmd="SELECT players.name, players.team, contracts.value FROM players JOIN contracts ON players.SSN=contracts.SSN WHERE contracts.value>3500"
+    str=cmd
+    try:
+        l=len(str)
+        l=int(l/33)
+        resultbox.delete(0,END)
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*33:(i+1)*33])
+        
+        resultbox.insert(TK.END, str[(i+1)*33:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
+        for row in db.cmd(cmd):
+            resultbox.insert(TK.END, row)
+    except:
+        resultbox.insert(TK.END, "BAD QUERY, check your syntax")
+        return
+    clear_text()
+    populate() 
 
 def insertp():
     pn=player.get()
@@ -73,7 +343,7 @@ def insertcontract():
         return
     
     if cl.isdigit() and cv.isdigit():
-        db.insertcontract(cos, cl, cv)
+        db.insertcontract(cos, cv, cl)
         clear_text()
         populate()
     else:
@@ -107,6 +377,7 @@ def clear_text():
     tnameentry.delete(0,END)
     taentry.delete(0,END)
     tlentry.delete(0,END)
+    toentry.delete(0,END)
     clentry.delete(0,END)
     cossnentry.delete(0,END)
     cventry.delete(0,END)
@@ -118,11 +389,17 @@ def clear_text():
     
 def query():
     cmd=sqlentry.get("1.0","end-1c")
-    print(cmd)
+    str=cmd
     try:
+        l=len(str)
+        l=int(l/31)
         resultbox.delete(0,END)
-        resultbox.insert(TK.END, cmd)
-        resultbox.insert(TK.END, "\n")
+        for i in range(0,l):
+            resultbox.insert(TK.END, str[i*31:(i+1)*31])
+        
+        resultbox.insert(TK.END, str[(i+1)*31:])   
+        resultbox.insert(TK.END, "\n")     
+        print(cmd)
         for row in db.cmd(cmd):
             resultbox.insert(TK.END, row)
     except:
@@ -133,7 +410,7 @@ def query():
 
 app = TK.Tk()
 app.title('DBMS project')
-app.geometry('930x700')
+app.geometry('930x780')
 
 # player blanks
 pssn = TK.StringVar()
@@ -289,17 +566,57 @@ insertr.grid(row=8, column=4, padx=20, pady=10)
 slist = TK.Listbox(app, height=10, width=20, border=0)
 slist.grid(row=9, column=4, padx=20, pady=10)
 
+sfw = TK.Button(app, text="SELECT FROM WHERE", width=18, command=sfw)
+sfw.grid(row=10, column=0, padx=20, pady=5)
+
+dlt = TK.Button(app, text="DELETE", width=18, command=dlt)
+dlt.grid(row=11, column=0, padx=20, pady=5)
+
+upd = TK.Button(app, text="UPDATE players", width=18, command=upd)
+upd.grid(row=12, column=0, padx=20, pady=5)
+
+iinn = TK.Button(app, text="IN", width=18, command=iinn)
+iinn.grid(row=13, column=0, padx=20, pady=5)
+
+notin = TK.Button(app, text="NOT IN", width=18, command=notin)
+notin.grid(row=14, column=0, padx=20, pady=5)
+
+exists = TK.Button(app, text="EXISTS", width=18, command=exists)
+exists.grid(row=15, column=0, padx=20, pady=5)
+
+notexists = TK.Button(app, text="NOT EXISTS", width=18, command=notexists)
+notexists.grid(row=10, column=1, padx=20, pady=5)
+
+cou = TK.Button(app, text="COUNT", width=18, command=cou)
+cou.grid(row=11, column=1, padx=20, pady=5)
+
+su = TK.Button(app, text="SUM", width=18, command=su)
+su.grid(row=12, column=1, padx=20, pady=5)
+
+max = TK.Button(app, text="MAX", width=18, command=max)
+max.grid(row=13, column=1, padx=20, pady=5)
+
+min = TK.Button(app, text="MIN", width=18, command=min)
+min.grid(row=14, column=1, padx=20, pady=5)
+
+avg = TK.Button(app, text="AVG", width=18, command=avg)
+avg.grid(row=15, column=1, padx=20, pady=5)
+
+having = TK.Button(app, text="HAVING", width=18, command=having)
+having.grid(row=13, column=2, padx=20, pady=5)
 
 # text box
 sqlentry = TK.Text(app, height=5, width=20)
-sqlentry.grid(row=10, column=2, padx=20, pady=10, columnspan=1)
+sqlentry.grid(row=10, column=2, padx=20, pady=10, columnspan=1,rowspan=2)
 
 query = TK.Button(app, text="Query by SQLite", width=18, command=query)
-query.grid(row=11, column=2, padx=20, pady=5)
+query.grid(row=12, column=2, padx=20, pady=5)
 
 # result box
 resultbox = TK.Listbox(app, height=10, width=30, border=0)
-resultbox.grid(row=10, column=3, padx=20, pady=10, columnspan=2, rowspan=2)
+resultbox.grid(row=10, column=3, padx=20, pady=10, columnspan=4, rowspan=4)
 
 populate()
 app.mainloop()
+
+#cmd="SELECT name,team from players WHERE EXISTS ( SELECT * FROM players JOIN schools ON players.school=school.name WHERE school.ranking>30 )"

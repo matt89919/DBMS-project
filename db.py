@@ -7,7 +7,7 @@ class Datebase:
         self.cursor.execute("CREATE TABLE IF NOT EXISTS teams (name text PRIMARY KEY, city text, arena text, owner text)")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS players (SSN text PRIMARY KEY, name text, team text, school text)")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS coaches (SSN text PRIMARY KEY, name text, team text)")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS contracts (name text PRIMARY KEY, value INTEGER, length INTEGER)")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS contracts (SSN text PRIMARY KEY, value INTEGER, length INTEGER)")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS schools (name text PRIMARY KEY, location text, ranking INTEGER)")
         self.connection.commit()
 
@@ -54,7 +54,7 @@ class Datebase:
         self.connection.commit()
 
     def update(self, ssn, name, team, school):
-        cmd="UPDATE players SET ssn='"+ssn+"', name='"+name+"', team='"+team+"', school='"+school+"'"
+        cmd="UPDATE players SET name='"+name+"', team='"+team+"', school='"+school+"' WHERE SSN='"+ssn+"'"
         print(cmd)
         self.cursor.execute(cmd)
         self.connection.commit()

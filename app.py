@@ -154,7 +154,7 @@ def su():
     populate()
     
 def notexists():
-    cmd="SELECT name,school FROM players WHERE NOT EXISTS (SELECT name FROM schools WHERE ranking<35)"
+    cmd="SELECT name,school FROM players WHERE NOT EXISTS (SELECT name FROM schools WHERE players.school=schools.name and schools.ranking<50)"
     str=cmd
     try:
         l=len(str)
@@ -175,7 +175,7 @@ def notexists():
     populate()
     
 def exists():
-    cmd="SELECT name,school FROM players WHERE EXISTS (SELECT name FROM schools WHERE ranking<35)"
+    cmd="SELECT name,school FROM players WHERE EXISTS (SELECT name FROM schools WHERE players.school=schools.name and schools.location='EU')"
     str=cmd
     try:
         l=len(str)
@@ -276,7 +276,7 @@ def dlt():
     populate() 
         
 def sfw():
-    cmd="SELECT players.name, players.team, contracts.value FROM players JOIN contracts ON players.SSN=contracts.SSN WHERE contracts.value>3500"
+    cmd="SELECT players.name, players.school FROM players JOIN schools ON players.school=schools.name WHERE schools.location='NC'"
     str=cmd
     try:
         l=len(str)
